@@ -2,12 +2,19 @@ FROM debian:jessie
 
 RUN apt-get update && apt-get install -y \
     nginx \
-    python \
+    sqlite3 \
+    python-dev \
     python-pip \
     supervisor \
+    libmemcached-dev \
+    zlib1g-dev \
+    libssl-dev \
+    build-essential \
     uwsgi \
     uwsgi-plugin-python \
   && rm -rf /var/lib/apt/lists/*
+
+RUN pip install pylibmc
 
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
